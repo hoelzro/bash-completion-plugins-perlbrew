@@ -7,8 +7,6 @@ use parent 'Bash::Completion::Plugin';
 
 use Bash::Completion::Utils qw(command_in_path);
 
-our $VERSION = '0.01';
-
 my @perlbrew_commands = qw/
 init install list use switch mirror off version help env install-cpanm
 /;
@@ -61,35 +59,12 @@ sub complete {
 
 __END__
 
-=head1 NAME
-
-Bash::Completion::Plugins::perlbrew - Bash completion for perlbrew
-
-=head1 VERSION
-
-0.01
+# ABSTRACT: Bash completion for perlbrew
 
 =head1 DESCRIPTION
 
 L<Bash::Completion> support for L<perlbrew|App::perlbrew>.  Completes perlbrew
 options as well as installed perlbrew versions.
-
-=head1 AUTHOR
-
-Rob Hoelz C<< rob at hoelz.ro >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-Bash-Completion-Plugins-perlbrew at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Bash-Completion-Plugins-perlbrew>. I will
-be notified, and then you'll automatically be notified of progress on your bug as I make changes.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2011 Rob Hoelz.
-
-This module is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
 
 =head1 SEE ALSO
 
