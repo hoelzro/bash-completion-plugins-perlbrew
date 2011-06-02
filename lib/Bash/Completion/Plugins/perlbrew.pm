@@ -46,7 +46,9 @@ sub complete {
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
             when('install') {
-                continue; # for now (complete Perls later)
+                my @perls = split /\n/, qx(perlbrew available);
+                @perls = map { s/^i?\s*//; $_  } @perls;
+                $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
             default {
                 # all other commands (including unrecognized ones) get
