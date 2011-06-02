@@ -40,7 +40,7 @@ sub complete {
                 $r->candidates(grep { /^\Q$word\E/ }
                     ( @perlbrew_commands, @perlbrew_options ));
             }
-            when(qr/^switch|env|use$/) {
+            when(qr/^switch|env|use|uninstall|alias$/) {
                 my @perls = split /\n/, qx(perlbrew list);
                 @perls = map { /^\*?\s*(?<name>\S+)/; $+{'name'} } @perls;
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
