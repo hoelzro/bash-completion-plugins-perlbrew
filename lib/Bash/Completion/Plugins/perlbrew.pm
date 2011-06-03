@@ -1,5 +1,7 @@
+## no critic (RequireUseStrict)
 package Bash::Completion::Plugins::perlbrew;
 
+## use critic (RequireUseStrict)
 use strict;
 use warnings;
 use feature 'switch';
@@ -47,7 +49,7 @@ sub complete {
             }
             when('install') {
                 my @perls = split /\n/, qx(perlbrew available);
-                @perls = map { s/^i?\s*//; $_  } @perls;
+                @perls = map { /^i?\s*(?<name>.*)/; $+{'name'}  } @perls;
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
             default {
