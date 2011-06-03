@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.02 June 03 2011
      - Convert to Dist::Zilla
      - Add support for new commands
 
