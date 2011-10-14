@@ -1,0 +1,51 @@
+=pod
+
+=head1 NAME
+
+Bash::Completion::Plugins::perlbrew - Bash completion for perlbrew
+
+=head1 VERSION
+
+version 0.05
+
+=head1 DESCRIPTION
+
+L<Bash::Completion> support for L<perlbrew|App::perlbrew>.  Completes perlbrew
+options as well as installed perlbrew versions.
+
+=head1 SEE ALSO
+
+L<Bash::Completion>, L<Bash::Completion::Plugin>, L<App::perlbrew>
+
+=begin comment
+
+=over
+
+=item should_activate
+
+=item complete
+
+=back
+
+=end comment
+
+=head1 AUTHOR
+
+Rob Hoelz <rob@hoelz.ro>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Rob Hoelz.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/hoelzro/bash-completion-plugins-perlbrew/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
