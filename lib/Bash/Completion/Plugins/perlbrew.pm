@@ -95,8 +95,17 @@ sub complete {
                 if($subcommand eq $word) {
                     $r->candidates(grep { /^\Q$word\E/ } @lib_subcommands);
                 } else {
-                    $r->candidates(); # we can't predict what you name your
-                                      # libs!
+                    if($subcommand eq 'delete') {
+                        my ( $current_perl, @perls ) = _get_perls();
+                        my @full_libs    = grep { /\@/ } @perls;
+                        my @current_libs = map { '@' . _extract_lib($_) }
+                            grep { /^\Q$current_perl\E\@/ } @perls;
+
+                        $r->candidates(grep { /^\Q$word\E/ } ( @full_libs, @current_libs ));
+                    } else {
+                        $r->candidates(); # we can't predict what you name your
+                                          # libs!
+                    }
                 }
             }
             default {
