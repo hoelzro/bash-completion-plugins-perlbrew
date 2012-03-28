@@ -27,6 +27,31 @@ sub should_activate {
     return [ grep { command_in_path($_) } qw/perlbrew/ ];
 }
 
+sub _extract_perl {
+    my ( $perl ) = @_;
+
+    $perl =~ s/\@.*//;
+    return $perl
+}
+
+sub _extract_lib {
+    my ( $perl ) = @_;
+
+    $perl =~ s/.*\@//;
+
+    return $perl;
+}
+
+sub _get_perls {
+    my @perls = split /\n/, qx(perlbrew list);
+    my ( $current_perl ) = grep { /^\*\s*/ } @perls;
+    ( $current_perl )    = $current_perl =~ /^\*\s*(\S+)/;
+
+    $current_perl = _extract_perl($current_perl);
+
+    return ( $current_perl, map { /^\*?\s*(?<name>\S+)/; $+{'name'} } @perls );
+}
+
 sub complete {
     my ( $self, $r ) = @_;
 
@@ -46,9 +71,14 @@ sub complete {
                 $r->candidates(grep { /^\Q$word\E/ }
                     ( @perlbrew_commands, @perlbrew_options ));
             }
-            when(qr/^switch|env|use|uninstall|alias$/) {
-                my @perls = split /\n/, qx(perlbrew list);
-                @perls = map { /^\*?\s*(?<name>\S+)/; $+{'name'} } @perls;
+            when(qr/^switch|env|use$/) {
+                my ( $current_perl, @perls ) = _get_perls();
+                my @libs = map { '@' . _extract_lib($_) }
+                    grep { /^\Q$current_perl\E\@/ } @perls;
+                $r->candidates(grep { /^\Q$word\E/ } ( @perls, @libs ));
+            }
+            when(qr/^uninstall|alias$/) {
+                my ( undef, @perls ) = _get_perls();
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
             when('install') {
