@@ -71,7 +71,7 @@ sub complete {
                 $r->candidates(grep { /^\Q$word\E/ }
                     ( @perlbrew_commands, @perlbrew_options ));
             }
-            when(qr/^switch|env|use$/) {
+            when(qr/^(?:switch|env|use)$/) {
                 my ( $current_perl, @perls ) = _get_perls();
                 my @libs = map { '@' . _extract_lib($_) }
                     grep { /^\Q$current_perl\E\@/ } @perls;
