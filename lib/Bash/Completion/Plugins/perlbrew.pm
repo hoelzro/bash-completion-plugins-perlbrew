@@ -77,7 +77,7 @@ sub complete {
                     grep { /^\Q$current_perl\E\@/ } @perls;
                 $r->candidates(grep { /^\Q$word\E/ } ( @perls, @libs ));
             }
-            when(qr/^uninstall|alias$/) {
+            when('uninstall') {
                 my ( undef, @perls ) = _get_perls();
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
