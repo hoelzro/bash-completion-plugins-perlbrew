@@ -23,6 +23,10 @@ my @lib_subcommands = qw/
     create delete
 /;
 
+my @alias_subcommands = qw/
+    create rename delete
+/;
+
 sub should_activate {
     return [ grep { command_in_path($_) } qw/perlbrew/ ];
 }
@@ -105,6 +109,31 @@ sub complete {
                     } else {
                         $r->candidates(); # we can't predict what you name your
                                           # libs!
+                    }
+                }
+            }
+            when('alias') {
+                my @words = grep { $_ !~ /^-/ } @args[ 1.. $#args ];
+
+                my $subcommand = $words[0] // '';
+
+                if($subcommand eq $word) {
+                    $r->candidates(grep { /^\Q$word\E/ } @alias_subcommands);
+                } else {
+                    if($subcommand eq 'create') {
+                        my $name = $words[1] // '';
+
+                        if($name eq $word) {
+                            my ( undef, @perls ) = _get_perls();
+                            @perls               = grep { $_ !~ /\@/ } @perls;
+
+                            $r->candidates(grep { /^\Q$word\E/ } @perls);
+                        } else {
+                            $r->candidates();
+                        }
+                    } else {
+                        $r->candidates(); # unfortunately, we can't list
+                                          # aliases separately yet =(
                     }
                 }
             }
