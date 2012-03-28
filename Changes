@@ -1,7 +1,12 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-     Fix version mixup.
+     - Add support for new commands (exec, switch-off, install-patchperl, lib)
+     - Add 'perl-blead' completion for perlbrew install
+     - Enhance support for 'alias' command
+
+0.04 July 31 2011
+     - Fix version mixup.
 
 0.02 June 03 2011
      - Convert to Dist::Zilla
