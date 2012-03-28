@@ -12,7 +12,7 @@ use Bash::Completion::Utils qw(command_in_path);
 my @perlbrew_commands = qw/
 init    install list use           switch    mirror    off
 version help    env  install-cpanm available uninstall self-upgrade
-alias
+alias exec
 /;
 
 my @perlbrew_options = qw/
