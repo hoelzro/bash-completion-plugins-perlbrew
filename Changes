@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.05 March 29 2012
      - Add support for new commands (exec, switch-off, install-patchperl, lib)
      - Add 'perl-blead' completion for perlbrew install
      - Enhance support for 'alias' command
