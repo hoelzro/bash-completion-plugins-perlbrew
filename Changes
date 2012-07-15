@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+     - Add support for install-ack, list-modules, and exec --with (perlbrew 0.45)
 
 0.05 March 29 2012
      - Add support for new commands (exec, switch-off, install-patchperl, lib)
