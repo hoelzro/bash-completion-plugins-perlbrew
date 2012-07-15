@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.06 July 15 2012
      - Add support for install-ack, list-modules, and exec --with (perlbrew 0.45)
 
 0.05 March 29 2012
