@@ -13,7 +13,7 @@ my @perlbrew_commands = qw/
 init    install list use           switch    mirror    off
 version help    env  install-cpanm available uninstall self-upgrade
 alias exec switch-off install-patchperl lib install-ack
-list-modules
+list-modules info
 /;
 
 my @perlbrew_options = qw/
