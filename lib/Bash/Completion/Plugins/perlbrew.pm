@@ -13,7 +13,7 @@ my @perlbrew_commands = qw/
 init    install list use           switch    mirror    off
 version help    env  install-cpanm available uninstall self-upgrade
 alias exec switch-off install-patchperl lib install-ack
-list-modules info
+list-modules info download
 /;
 
 my @perlbrew_options = qw/
@@ -87,7 +87,7 @@ sub complete {
                 my ( undef, @perls ) = _get_perls();
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
-            when('install') {
+            when(qr/^(?:install|download)$/) {
                 my @perls = split /\n/, qx(perlbrew available);
                 @perls = map { /^i?\s*(?<name>.*)/; $+{'name'}  } @perls;
                 push @perls, 'perl-blead';
