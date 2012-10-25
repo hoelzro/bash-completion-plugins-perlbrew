@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.08 October 25 2012
      - Add upgrade-perl command
 
 0.07 October 15 2012
