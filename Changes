@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+     - Add upgrade-perl command
 
 0.07 October 15 2012
      - Add info and download commands (perlbrew 0.53)
