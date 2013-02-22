@@ -91,6 +91,8 @@ sub complete {
                 my @perls = split /\n/, qx(perlbrew available);
                 @perls = map { /^i?\s*(?<name>.*)/; $+{'name'}  } @perls;
                 push @perls, 'perl-blead';
+                push @perls, 'perl-stable';
+                push @perls, 'stable';
                 $r->candidates(grep { /^\Q$word\E/ } @perls);
             }
             when('lib') {
