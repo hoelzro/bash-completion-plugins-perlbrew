@@ -90,6 +90,7 @@ sub complete {
             when(qr/^(?:install|download)$/) {
                 my @perls = split /\n/, qx(perlbrew available);
                 @perls = map { /^i?\s*(?<name>.*)/; $+{'name'}  } @perls;
+                push @perls, 'blead';
                 push @perls, 'perl-blead';
                 push @perls, 'perl-stable';
                 push @perls, 'stable';
