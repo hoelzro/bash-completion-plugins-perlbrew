@@ -18,7 +18,7 @@ list-modules info download upgrade-perl
 
 my @perlbrew_options = qw/
  -h --help -f --force -j -n --notest -q --quiet -v --verbose --as -D -U -A
- --with
+ --with --switch
 /;
 
 my @lib_subcommands = qw/
