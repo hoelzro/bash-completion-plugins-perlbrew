@@ -1,6 +1,11 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+     - Tell perlbrew's completion to fall back to filenames if no completions are generated
+       (for install)
+     - Add missing completion for install ('blead')
+     - Offer 'stable' and 'perl-stable' as completions for perl install
+     - Add completion for new '--switch' option
 
 0.08 October 25 2012
      - Add upgrade-perl command
