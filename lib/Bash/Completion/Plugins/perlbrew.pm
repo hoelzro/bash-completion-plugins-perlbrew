@@ -7,7 +7,7 @@ use warnings;
 use feature 'switch';
 use parent 'Bash::Completion::Plugin';
 
-use Bash::Completion::Utils qw(command_in_path);
+use Bash::Completion::Utils qw(command_in_path prefix_match);
 
 my @perlbrew_commands = qw/
 init    install list use           switch    mirror    off
@@ -64,7 +64,7 @@ sub complete {
     my $word = $r->word;
 
     if($word =~ /^-/) {
-        $r->candidates(grep { /^\Q$word\E/ } @perlbrew_options);
+        $r->candidates(prefix_match($word, @perlbrew_options));
     } else {
         my @args = $r->args;
         shift @args; # get rid of 'perlbrew'
@@ -74,18 +74,18 @@ sub complete {
 
         given($command) {
             when($command eq $word) {
-                $r->candidates(grep { /^\Q$word\E/ }
-                    ( @perlbrew_commands, @perlbrew_options ));
+                $r->candidates(prefix_match($word, @perlbrew_commands,
+                    @perlbrew_options));
             }
             when(qr/^(?:switch|env|use)$/) {
                 my ( $current_perl, @perls ) = _get_perls();
                 my @libs = map { '@' . _extract_lib($_) }
-                    grep { /^\Q$current_perl\E\@/ } @perls;
-                $r->candidates(grep { /^\Q$word\E/ } ( @perls, @libs ));
+                    prefix_match($current_perl . '@', @perls);
+                $r->candidates(prefix_match($word, @perls, @libs));
             }
             when('uninstall') {
                 my ( undef, @perls ) = _get_perls();
-                $r->candidates(grep { /^\Q$word\E/ } @perls);
+                $r->candidates(prefix_match($word, @perls));
             }
             when(qr/^(?:install|download)$/) {
                 my @perls = split /\n/, qx(perlbrew available);
@@ -94,7 +94,7 @@ sub complete {
                 push @perls, 'perl-blead';
                 push @perls, 'perl-stable';
                 push @perls, 'stable';
-                $r->candidates(grep { /^\Q$word\E/ } @perls);
+                $r->candidates(prefix_match($word, @perls));
             }
             when('lib') {
                 my ( $subcommand ) = grep { $_ !~ /^-/ } @args[ 1 .. $#args ];
@@ -102,15 +102,15 @@ sub complete {
                 $subcommand //= '';
 
                 if($subcommand eq $word) {
-                    $r->candidates(grep { /^\Q$word\E/ } @lib_subcommands);
+                    $r->candidates(prefix_match($word, @lib_subcommands));
                 } else {
                     if($subcommand eq 'delete') {
                         my ( $current_perl, @perls ) = _get_perls();
                         my @full_libs    = grep { /\@/ } @perls;
                         my @current_libs = map { '@' . _extract_lib($_) }
-                            grep { /^\Q$current_perl\E\@/ } @perls;
+                            prefix_match($current_perl . '@', @perls);
 
-                        $r->candidates(grep { /^\Q$word\E/ } ( @full_libs, @current_libs ));
+                        $r->candidates(prefix_match($word, @full_libs, @current_libs));
                     } else {
                         $r->candidates(); # we can't predict what you name your
                                           # libs!
@@ -123,7 +123,7 @@ sub complete {
                 my $subcommand = $words[0] // '';
 
                 if($subcommand eq $word) {
-                    $r->candidates(grep { /^\Q$word\E/ } @alias_subcommands);
+                    $r->candidates(prefix_match($word, @alias_subcommands));
                 } else {
                     if($subcommand eq 'create') {
                         my $name = $words[1] // '';
@@ -132,7 +132,7 @@ sub complete {
                             my ( undef, @perls ) = _get_perls();
                             @perls               = grep { $_ !~ /\@/ } @perls;
 
-                            $r->candidates(grep { /^\Q$word\E/ } @perls);
+                            $r->candidates(prefix_match($word, @perls));
                         } else {
                             $r->candidates();
                         }
