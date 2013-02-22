@@ -151,6 +151,10 @@ sub complete {
     }
 }
 
+sub generate_bash_setup {
+    return [qw(default)];
+}
+
 1;
 
 __END__
