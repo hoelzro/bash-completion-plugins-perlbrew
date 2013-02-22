@@ -91,10 +91,15 @@ sub complete {
             when(qr/^(?:install|download)$/) {
                 my @perls = split /\n/, qx(perlbrew available);
                 @perls = map { /^i?\s*(?<name>.*)/; $+{'name'}  } @perls;
-                push @perls, 'blead';
                 push @perls, 'perl-blead';
                 push @perls, 'perl-stable';
-                push @perls, 'stable';
+                foreach my $perl (@perls) {
+                    if($perl =~ /^perl-/) {
+                        my $copy = $perl;
+                        $copy    =~ s/^perl-//;
+                        push @perls, $copy;
+                    }
+                }
                 $r->candidates(prefix_match($word, @perls));
             }
             when('lib') {
