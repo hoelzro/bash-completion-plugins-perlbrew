@@ -85,6 +85,7 @@ sub complete {
             }
             when('uninstall') {
                 my ( undef, @perls ) = _get_perls();
+                @perls = grep { !/\@/ } @perls;
                 $r->candidates(prefix_match($word, @perls));
             }
             when(qr/^(?:install|download)$/) {
