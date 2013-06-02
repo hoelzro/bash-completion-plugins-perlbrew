@@ -13,12 +13,12 @@ my @perlbrew_commands = qw/
 init    install list use           switch    mirror    off
 version help    env  install-cpanm available uninstall self-upgrade
 alias exec switch-off install-patchperl lib
-list-modules info download upgrade-perl
+list-modules info download upgrade-perl install-multiple
 /;
 
 my @perlbrew_options = qw/
  -h --help -f --force -j -n --notest -q --quiet -v --verbose --as -D -U -A
- --with --switch
+ --with --switch --both --common-variations --all-variations
 /;
 
 my @lib_subcommands = qw/
@@ -88,7 +88,7 @@ sub complete {
                 @perls = grep { !/\@/ } @perls;
                 $r->candidates(prefix_match($word, @perls));
             }
-            when(qr/^(?:install|download)$/) {
+            when(qr/^(?:install|download|install-multiple)$/) {
                 my @perls = split /\n/, qx(perlbrew available);
                 @perls = map { /^i?\s*(?<name>.*)/; $+{'name'}  } @perls;
                 push @perls, 'perl-blead';
