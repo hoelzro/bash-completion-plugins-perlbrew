@@ -1,6 +1,11 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+     - Sync up with perlbrew 0.64.
+     - Remove install-ack completion.
+     - Add install-multiple completion.
+     - Add new install flags.
+     - Move away from given/when
 
 0.09 February 22 2013
      - Tell perlbrew's completion to fall back to filenames if no completions are generated
