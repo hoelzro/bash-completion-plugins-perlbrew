@@ -19,6 +19,7 @@ list-modules info download upgrade-perl install-multiple
 my @perlbrew_options = qw/
  -h --help -f --force -j -n --notest -q --quiet -v --verbose --as -D -U -A
  --with --switch --both --common-variations --all-variations
+ --noman --thread --multi --64int --64all --ld --debug --sitecustomize
 /;
 
 my @lib_subcommands = qw/
